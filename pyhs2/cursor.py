@@ -1,7 +1,7 @@
 from TCLIService.ttypes import TOpenSessionReq, TGetTablesReq, TFetchResultsReq,\
   TStatusCode, TGetResultSetMetadataReq, TGetColumnsReq, TType, TTypeId, \
   TExecuteStatementReq, TGetOperationStatusReq, TFetchOrientation, TCloseOperationReq, \
-  TCloseSessionReq, TGetSchemasReq, TGetLogReq, TCancelOperationReq, TGetCatalogsReq, TGetInfoReq
+  TCloseSessionReq, TGetSchemasReq, TCancelOperationReq, TGetCatalogsReq, TGetInfoReq
 
 from error import Pyhs2Exception
 import threading
