@@ -62,6 +62,24 @@ class Cursor(object):
         self.operationHandle = res.operationHandle
         if res.status.errorCode is not None:
             raise Pyhs2Exception(res.status.errorCode, res.status.errorMessage)
+
+    def execute_nonblocking(self, hql):
+        self.hasMoreRows = True
+        query = TExecuteStatementReq(self.session, statement=hql,
+                                     confOverlay={}, runAsync=True)
+        res = self.client.ExecuteStatement(query)
+        if res.status.errorCode is not None:
+            raise Pyhs2Exception(res.status.errorCode, res.status.errorMessage)
+        self.operationHandle = res.operationHandle
+
+    def check_pending_execute(self):
+        '''Returns TGetOperationStatusResp of the last command called.'''
+        res = self.client.GetOperationStatus(
+            TGetOperationStatusReq(self.operationHandle))
+        if res.status.errorCode is not None:
+            raise Pyhs2Exception(res.status.errorCode, res.status.errorMessage)
+
+        return res        
         
     def fetch(self):
         rows = []
