@@ -1,3 +1,5 @@
+import error
+
 def connect(*args, **kwargs):
     """
     Connect to the database; see connections.Connection.__init__() for
