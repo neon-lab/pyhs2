@@ -1,7 +1,8 @@
 from TCLIService.ttypes import TOpenSessionReq, TGetTablesReq, TFetchResultsReq,\
   TStatusCode, TGetResultSetMetadataReq, TGetColumnsReq, TType, TTypeId, \
   TExecuteStatementReq, TGetOperationStatusReq, TFetchOrientation, TCloseOperationReq, \
-  TCloseSessionReq, TGetSchemasReq, TCancelOperationReq, TGetCatalogsReq, TGetInfoReq
+  TCloseSessionReq, TGetSchemasReq, TCancelOperationReq, TGetCatalogsReq, TGetInfoReq, \
+  TOperationState
 
 from error import Pyhs2Exception
 import threading
@@ -79,6 +80,8 @@ class Cursor(object):
         if res.status.errorCode is not None:
             raise Pyhs2Exception(res.status.errorCode, res.status.errorMessage)
 
+        res.operationState = TOperationState._VALUES_TO_NAMES[
+            res.operationState]
         return res        
         
     def fetch(self):
